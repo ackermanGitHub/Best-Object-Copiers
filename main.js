@@ -1,4 +1,35 @@
-const juan = {
+/* //SHADOW COPY, JSONSTRINGIFY AND JSONPARSE 
+const obj1 = {
+    a: "A",
+    b: "B",
+    c: {
+        d: "D",
+        e: "E",
+    },
+};
+
+const stringfiedComplexObj = JSON.stringify(obj1);
+//converts a JavaScript object or value to a JSON string
+
+const obj2 = JSON.parse(stringfiedComplexObj);
+//parses a JSON string, constructing the JavaScript value or object described by the string */
+
+
+/* for (prop in obj1) {
+    obj2[prop] = obj1[prop];
+} */
+
+//const obj3 = Object.assign({}, obj1);
+//Copies the values of all enumerable own properties from one or more source objects to a target object.
+
+//const obj4 = Object.create(obj1);
+//Creates a new object with the specified prototype object and properties. */
+
+
+
+
+//STATIC METHODS AND ATRIBUTES:
+/* const juan = {
     name: "Juanito",
     age: 18,
     approvedCourses: ["Curso 1"],
@@ -53,4 +84,4 @@ Object.defineProperty(juan, "terminal", {
 
 
 //console.log(Object.getOwnPropertyDescriptors(juan)); 
-//Returns a property descriptor for a named property on an object.
+//Returns a property descriptor for a named property on an object. */
