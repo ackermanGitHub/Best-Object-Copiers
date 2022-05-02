@@ -1,4 +1,62 @@
-/* //SHADOW COPY, JSONSTRINGIFY AND JSONPARSE 
+//RECURSIVITY AND RECURSIVITY WITH DEEP COPY
+/* const numbers = [78,1,2,3,4,5,6,7,8,34,5,42,41,32,1,];
+
+function recursive(numbersArray) {
+    if (numbersArray.length != 0) {
+        const firstNum = numbersArray[0];
+        console.log(firstNum);        
+        numbersArray.shift();
+        recursive(numbersArray);
+    }
+}  */
+
+/* let number = 0;
+for (let index = 0; index < numbers.length; index++) {
+    number = numbers[index];
+    console.log({index, number});
+} */
+
+function isObject(subject) {
+    return typeof subject == "object";
+}
+function isArray(subject) {
+    return Array.isArray(subject);
+}
+
+function deepCopy(subject) {
+    let copySubject;
+
+    const subjectIsArray = isArray(subject);
+    const subjectIsObject = isObject(subject);
+
+    if (subjectIsArray) {
+        copySubject = [];
+    } else if (subjectIsObject) {
+        copySubject = {};
+    } else {
+        return subject;
+    }
+
+    for (key in subject) {
+        const keyIsObject = isObject(subject[key])
+        if (keyIsObject) {
+            copySubject[key] = deepCopy(subject[key]);
+        } else {
+            if (subjectIsArray) {
+                copySubject.push(subject[key]);
+            } else {
+                copySubject[key] = subject[key];
+            }
+        }
+    }
+
+    return copySubject;
+}
+
+
+
+
+//SHADOW COPY, JSONSTRINGIFY AND JSONPARSE 
 const obj1 = {
     a: "A",
     b: "B",
@@ -7,7 +65,7 @@ const obj1 = {
         e: "E",
     },
 };
-
+/* 
 const stringfiedComplexObj = JSON.stringify(obj1);
 //converts a JavaScript object or value to a JSON string
 
