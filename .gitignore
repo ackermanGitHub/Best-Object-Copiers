@@ -108,3 +108,9 @@ dist
 
 # Configuracion de estilos de VSCode
 .code-workspace
+
+# Object file
+*.o
+
+# Ada Library Information
+*.ali
