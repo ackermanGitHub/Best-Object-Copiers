@@ -12,7 +12,77 @@ const juan = {
 };
 console.log(juan);
 
-//RECURSIVITY AND RECURSIVITY WITH DEEP COPY
+// ABSTRACCION CON OBJETOS LITERALES Y DEEP COPY --- Clases 10
+console.group("Deep Copy on literals objects");
+const studentBase = {
+    name: undefined,
+    email: undefined,
+    age: undefined,
+    approvedCourses: undefined,
+    learnungPaths: undefined,
+    socialMedia: {
+        twitter: undefined,
+        instagram: undefined,
+        facebook: undefined,
+    },
+};
+
+let pepino = {};
+pepino = deepCopy(studentBase, pepino, "Pepino");
+//Object.seal(pepino);
+//Object.freeze(pepino);
+console.log("Pepino");
+console.log(pepino);
+console.log("Pepino .isSealed and .isFrozen");
+console.log(Object.isSealed(pepino));
+console.log(Object.isFrozen(pepino));
+/* Object.defineProperty(pepino, "name", {
+    value: "Pepino",
+    configurable: false,
+}); */
+console.groupEnd("");
+
+
+//Objects creator function *****IMPORTANT***** CLASE 11
+console.group("object_creator function");
+function requiredParam(param) {
+    throw new Error(param + " es obligatorio");
+}
+function createStudent({
+    name = requiredParam("name"),
+    email = requiredParam("email"),
+    age,
+    twitter,
+    instagram,
+    facebook,
+    approvedCourses = [],
+    learnungPaths = [],
+} = {}) {
+    return {
+        name,
+        age,
+        email,
+        approvedCourses,
+        learnungPaths,
+        socialMedia: {
+            twitter,
+            instagram,
+            facebook,
+        },
+    };
+}
+const julio = createStudent({
+    name: "Julio",
+    age: 18,
+    email: "jlpz3921@gmail.com",
+    twitter: "@skankhunt42",
+});
+console.log("Julio");
+console.log(julio);
+console.groupEnd("");
+
+
+//RECURSIVITY AND RECURSIVITY WITH DEEP COPY --- Clases 8 y 9
 // Imprimir elementos de un array
 const numbers = [78,1,2,3,4,5,6,7,8,34,5,42,41,32,1,];
 
@@ -24,8 +94,6 @@ function recursive(numbersArray) {
         recursive(numbersArray);
     }
 }
-
-
 // Imprimir elementos de un array con su index
 let number = 0;
 for (let index = 0; index < numbers.length; index++) {
@@ -42,7 +110,7 @@ function isArray(subject) {
 }
 
 // Best Objects Copier
-console.group("Best Object Copier (Recursive Functions)");
+console.group("Best Object Copier ( DEEP COPY )");
 function deepCopy(subject, copy, newName) {
 
     const subjectIsArray = isArray(subject);
@@ -73,14 +141,17 @@ function deepCopy(subject, copy, newName) {
 }
 let pedro = {};
 pedro = deepCopy(juan, pedro, "Pedro");
+console.log(pedro);
 let pepito = {};
 pepito = deepCopy(pedro, pepito , "Pepito");
-console.log(pedro);
 console.log(pepito);
+let morell = {};
+morell = deepCopy(pedro, morell , "Cristian");
+console.log(morell);
 console.groupEnd();
 
+//SHADOW COPY, JSONSTRINGIFY AND JSONPARSE --- Clases 6 y 7
 console.group("Objects Shadow Copy");
-//SHADOW COPY, JSONSTRINGIFY AND JSONPARSE 
 const obj1 = {
     a: "A",
     b: "B",
@@ -90,13 +161,13 @@ const obj1 = {
     },
 };
 console.log("With JSON.stringify");
-const stringfiedComplexObj = JSON.stringify(obj1);
 //converts a JavaScript object or value to a JSON string
+const stringfiedComplexObj = JSON.stringify(obj1);
 console.log(stringfiedComplexObj);
 
 console.log("With JSON.parse");
-const obj2 = JSON.parse(stringfiedComplexObj);
 //parses a JSON string, constructing the JavaScript value or object described by the string
+const obj2 = JSON.parse(stringfiedComplexObj);
 console.log(obj2);
 
 console.log("With for cicle");
@@ -108,26 +179,29 @@ for (prop in obj1) {
 console.log(obj3);
 
 console.log("With .assign");
-const obj4 = Object.assign({}, obj1);
 //Copies the values of all enumerable own properties from one or more source objects to a target object.
+const obj4 = Object.assign({}, obj1);
 console.log(obj4);
 
 console.log("With .create");
+//Creates a new object with the specified prototype object and properties.
 const obj5 = Object.create(obj1);
-//Creates a new object with the specified prototype object and properties. */
 console.log(obj5);
 console.groupEnd("");
 
 
-//STATIC METHODS AND ATRIBUTES:
+//STATIC METHODS AND ATRIBUTES: --- Clases 2, 3 y 4
 
 console.group("Object_To_Array Copier");
+console.log("With Object.keys");
 console.log(Object.keys(juan));
 //Returns an array containing the names of all of the given object's own enumerable string properties.
 
+console.log("With Object.getOwnPropertyName");
 console.log(Object.getOwnPropertyNames(juan));
 //Returns an array containing the names of all of the given object's own enumerable and non-enumerable properties.
 
+console.log("With Object.entries");
 console.log(Object.entries(juan));
 //Returns an array containing all of the [key, value] pairs of a given object's own enumerable string properties.
 console.groupEnd();
@@ -165,7 +239,9 @@ Object.defineProperty(juan, "terminal", {
 //Freezes an object. Other code cannot delete or change its properties.
 
 console.group("Property_Descriptors");
+console.log("With Object.getOwnPropertyDescriptors");
 console.log(Object.getOwnPropertyDescriptors(juan)); 
 //Returns a property descriptor for a named property on an object.
 console.groupEnd();
+
 
