@@ -18,13 +18,18 @@ const studentBase = {
     name: undefined,
     email: undefined,
     age: undefined,
-    approvedCourses: undefined,
-    learnungPaths: undefined,
+    approvedCourses: [],
+    learnungPaths: [],
     socialMedia: {
         twitter: undefined,
         instagram: undefined,
         facebook: undefined,
     },
+    addCourse(newCourse) {
+        console.log("This", this);
+        console.log("This.approvedCourses", this.approvedCourses);
+        this.approvedCourses.push(newCourse);
+    }
 };
 
 let pepino = {};
@@ -43,8 +48,8 @@ console.log(Object.isFrozen(pepino));
 console.groupEnd("");
 
 
-//Objects creator function *****IMPORTANT***** CLASE 11
-console.group("object_creator function");
+//Objects creator function *****IMPORTANT***** CLASES 11
+console.group("Object_Creator Function");
 function requiredParam(param) {
     throw new Error(param + " es obligatorio");
 }
@@ -58,8 +63,10 @@ function createStudent({
     approvedCourses = [],
     learnungPaths = [],
 } = {}) {
-    return {
-        name,
+    const private = {
+        "_name": name,
+    };
+    const public = {
         age,
         email,
         approvedCourses,
@@ -69,7 +76,24 @@ function createStudent({
             instagram,
             facebook,
         },
+        readName(){
+            return private["_name"];
+        },
+        changeName(newName){
+            private["_name"] = newName;
+        },
     };
+
+    Object.defineProperty(public, "readName", {
+        configurable: false,
+        writable: false,
+    });
+    Object.defineProperty(public, "changeName", {
+        configurable: false,
+        writable: false,
+    });
+
+    return public;
 }
 const julio = createStudent({
     name: "Julio",
