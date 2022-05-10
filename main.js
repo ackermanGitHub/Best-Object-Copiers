@@ -76,22 +76,32 @@ function createStudent({
             instagram,
             facebook,
         },
-        readName(){
+        get name() {
             return private["_name"];
         },
-        changeName(newName){
-            private["_name"] = newName;
+        set name(newName) {
+            if (newName.length != 0) {
+                private["_name"] = newName;
+            } else {
+                console.warn("Tu nombre debe tener al menos 1 caracter");
+            }
         },
+        //readName(){
+        //    return private["_name"];
+        //},
+        //changeName(newName){
+        //    private["_name"] = newName;
+        //},
     };
 
-    Object.defineProperty(public, "readName", {
-        configurable: false,
-        writable: false,
-    });
-    Object.defineProperty(public, "changeName", {
-        configurable: false,
-        writable: false,
-    });
+    //Object.defineProperty(public, "readName", {
+    //    configurable: false,
+    //    writable: false,
+    //});
+    //Object.defineProperty(public, "changeName", {
+    //    configurable: false,
+    //    writable: false,
+    //});
 
     return public;
 }
@@ -172,7 +182,19 @@ console.log(pepito);
 let morell = {};
 morell = deepCopy(pedro, morell , "Cristian");
 console.log(morell);
+let miguel = deepCopy(juan);
+miguel.playList = ["Efecto"];
+miguel.addSong = function (newSong){this.playList.push(newSong);}
+miguel.addSong("Titi me Preguntó");
+Object.defineProperty(miguel, "VeranoSinTi", {
+    value: "Moscow Mule",
+    writable: false,
+    enumerable: false,
+    configurable: false,
+})
+console.log(miguel);
 console.groupEnd();
+
 
 //SHADOW COPY, JSONSTRINGIFY AND JSONPARSE --- Clases 6 y 7
 console.group("Objects Shadow Copy");
