@@ -33,7 +33,7 @@ const studentBase = {
 };
 
 let pepino = {};
-pepino = deepCopy(studentBase, pepino, "Pepino");
+pepino = deepCopy(studentBase, "Pepino");
 //Object.seal(pepino);
 //Object.freeze(pepino);
 console.log("Pepino");
@@ -162,8 +162,8 @@ function isArray(subject) {
 
 // Best Objects Copier
 console.group("Best Object Copier ( DEEP COPY )");
-function deepCopy(subject, copy, newName) {
-
+function deepCopy(subject, newName) {
+    let copy;
     const subjectIsArray = isArray(subject);
     const subjectIsObject = isObject(subject);
 
@@ -191,13 +191,13 @@ function deepCopy(subject, copy, newName) {
     return copy;
 }
 let pedro = {};
-pedro = deepCopy(juan, pedro, "Pedro");
+pedro = deepCopy(juan, "Pedro");
 console.log(pedro);
 let pepito = {};
-pepito = deepCopy(pedro, pepito , "Pepito");
+pepito = deepCopy(pedro, "Pepito");
 console.log(pepito);
 let morell = {};
-morell = deepCopy(pedro, morell , "Cristian");
+morell = deepCopy(pedro, "Cristian");
 console.log(morell);
 let miguel = deepCopy(juan);
 miguel.playList = ["Efecto"];
