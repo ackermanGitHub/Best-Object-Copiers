@@ -190,6 +190,43 @@ function deepCopy(subject, newName) {
     copy.name = newName;
     return copy;
 }
+
+function SuperObject(){}
+SuperObject.isObject = function (subject) {
+	if(Array.isArray(subject)){
+		return false
+	}
+  return typeof subject == "object";
+}
+SuperObject.deepCopy = function (subject) {
+    let copy;
+    const subjectIsArray = isArray(subject);
+    const subjectIsObject = isObject(subject);
+
+    if (subjectIsArray) {
+        copy = [];
+    } else if (subjectIsObject) {
+        copy = {};
+    } else {
+        return subject;
+    }
+
+    for (key in subject) {
+        const keyIsObject = isObject(subject[key])
+        if (keyIsObject) {
+            copy[key] = deepCopy(subject[key]);
+        } else {
+            if (subjectIsArray) {
+                copy.push(subject[key]);
+            } else {
+                copy[key] = subject[key];
+            }
+        }
+    }
+    return copy;
+}
+
+
 let pedro = {};
 pedro = deepCopy(juan, "Pedro");
 console.log(pedro);
